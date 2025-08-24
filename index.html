@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+    <title>Flash Loader</title>
+
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            margin: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <embed id="game" type="application/x-shockwave-flash" src="x">
+
+    <script>
+        var passedVars = (window.location.search.substring(1));
+        var gameArray = passedVars.split("-");
+        var gameName = "factoryballs2";
+        var flashX = 640;
+        var flashY = 600;
+        var gameRatio = (flashX / flashY).toFixed(4);
+
+        game.style.boxShadow = "0 0 5vmin 1vmin black";
+        game.src = gameName + ".swf";
+
+        function sizeGame() {
+            game.style.height = "100vh";
+            game.style.width = gameRatio * 100 + "vh";
+            if (gameRatio > (window.innerWidth / window.innerHeight)) {
+                game.style.width = "100vw";
+                game.style.height = (flashY / flashX).toFixed(4) * 100 + "vw";
+            }
+            var topMargin = (window.innerHeight - game.clientHeight) / 2;
+            game.style.marginTop = topMargin + "px";
+        }
+
+        sizeGame();
+        window.addEventListener("resize", sizeGame);
+
+        if (false) { //window.location === window.parent.location
+            setInterval(function() {
+                document.write("Ooops! We're really sorry. Something went wrong. Please check the URL of the game you are trying to load. ");
+            }, 100);
+        }
+
+    </script>
+
+    <script src="ruffle.js"></script>
+
+</body>
+
+</html>
